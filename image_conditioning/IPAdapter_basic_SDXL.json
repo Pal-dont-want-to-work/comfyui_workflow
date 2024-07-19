@@ -1,6 +1,6 @@
 {
-  "last_node_id": 47,
-  "last_link_id": 88,
+  "last_node_id": 55,
+  "last_link_id": 105,
   "nodes": [
     {
       "id": 32,
@@ -47,7 +47,8 @@
           "links": [
             59
           ],
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "LATENT"
         }
       ],
       "properties": {
@@ -60,158 +61,6 @@
       ],
       "color": "#323",
       "bgcolor": "#535"
-    },
-    {
-      "id": 16,
-      "type": "CLIPTextEncodeSDXL",
-      "pos": [
-        720,
-        480
-      ],
-      "size": {
-        "0": 210,
-        "1": 220
-      },
-      "flags": {},
-      "order": 9,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 18
-        },
-        {
-          "name": "text_g",
-          "type": "STRING",
-          "link": 20,
-          "widget": {
-            "name": "text_g",
-            "config": [
-              "STRING",
-              {
-                "multiline": true,
-                "default": "CLIP_G"
-              }
-            ]
-          }
-        },
-        {
-          "name": "text_l",
-          "type": "STRING",
-          "link": 50,
-          "widget": {
-            "name": "text_l",
-            "config": [
-              "STRING",
-              {
-                "multiline": true,
-                "default": "CLIP_L"
-              }
-            ]
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            57
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CLIPTextEncodeSDXL"
-      },
-      "widgets_values": [
-        4096,
-        4096,
-        0,
-        0,
-        4096,
-        4096,
-        "masterpiece illustration of a scifi cyberpunk girl smiling\n\ndetailed, high quality",
-        "masterpiece illustration of a scifi cyberpunk girl smiling\n\ndetailed, high quality"
-      ]
-    },
-    {
-      "id": 19,
-      "type": "CLIPTextEncodeSDXL",
-      "pos": [
-        720,
-        740
-      ],
-      "size": {
-        "0": 210,
-        "1": 220
-      },
-      "flags": {},
-      "order": 10,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 19
-        },
-        {
-          "name": "text_g",
-          "type": "STRING",
-          "link": 22,
-          "widget": {
-            "name": "text_g",
-            "config": [
-              "STRING",
-              {
-                "multiline": true,
-                "default": "CLIP_G"
-              }
-            ]
-          }
-        },
-        {
-          "name": "text_l",
-          "type": "STRING",
-          "link": 49,
-          "widget": {
-            "name": "text_l",
-            "config": [
-              "STRING",
-              {
-                "multiline": true,
-                "default": "CLIP_L"
-              }
-            ]
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            58
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CLIPTextEncodeSDXL"
-      },
-      "widgets_values": [
-        4096,
-        4096,
-        0,
-        0,
-        4096,
-        4096,
-        "blurry, rendering, photograph",
-        "blurry, rendering, photograph"
-      ]
     },
     {
       "id": 23,
@@ -237,19 +86,15 @@
           ],
           "slot_index": 0,
           "widget": {
-            "name": "text_g",
-            "config": [
-              "STRING",
-              {
-                "multiline": true,
-                "default": "CLIP_G"
-              }
-            ]
-          }
+            "name": "text_g"
+          },
+          "label": "STRING"
         }
       ],
       "title": "Prompt: Negative",
-      "properties": {},
+      "properties": {
+        "Run widget replace on values": false
+      },
       "widgets_values": [
         "blurry, rendering, photograph"
       ],
@@ -280,24 +125,287 @@
           ],
           "slot_index": 0,
           "widget": {
-            "name": "text_g",
-            "config": [
-              "STRING",
-              {
-                "multiline": true,
-                "default": "CLIP_G"
-              }
-            ]
-          }
+            "name": "text_g"
+          },
+          "label": "STRING"
         }
       ],
       "title": "Prompt: Main subject",
-      "properties": {},
+      "properties": {
+        "Run widget replace on values": false
+      },
       "widgets_values": [
         "masterpiece illustration of a scifi cyberpunk girl smiling\n\ndetailed, high quality"
       ],
       "color": "#232",
       "bgcolor": "#353"
+    },
+    {
+      "id": 8,
+      "type": "VAEDecode",
+      "pos": [
+        1260,
+        370
+      ],
+      "size": {
+        "0": 140,
+        "1": 60
+      },
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 62,
+          "label": "samples"
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 61,
+          "label": "vae"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            9
+          ],
+          "slot_index": 0,
+          "label": "IMAGE"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      }
+    },
+    {
+      "id": 9,
+      "type": "SaveImage",
+      "pos": [
+        1260,
+        470
+      ],
+      "size": {
+        "0": 400,
+        "1": 450
+      },
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 9,
+          "label": "images"
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "SDXL"
+      ]
+    },
+    {
+      "id": 36,
+      "type": "KSampler",
+      "pos": [
+        1000,
+        470
+      ],
+      "size": [
+        240,
+        474
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 93,
+          "label": "model"
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 57,
+          "label": "positive"
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 58,
+          "label": "negative"
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 59,
+          "label": "latent_image"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            62
+          ],
+          "shape": 3,
+          "slot_index": 0,
+          "label": "LATENT"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        2,
+        "fixed",
+        20,
+        8,
+        "ddim",
+        "ddim_uniform",
+        1
+      ]
+    },
+    {
+      "id": 16,
+      "type": "CLIPTextEncodeSDXL",
+      "pos": [
+        720,
+        480
+      ],
+      "size": {
+        "0": 210,
+        "1": 220
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 18,
+          "label": "clip"
+        },
+        {
+          "name": "text_g",
+          "type": "STRING",
+          "link": 20,
+          "widget": {
+            "name": "text_g"
+          },
+          "label": "text_g"
+        },
+        {
+          "name": "text_l",
+          "type": "STRING",
+          "link": 50,
+          "widget": {
+            "name": "text_l"
+          },
+          "label": "text_l"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            57
+          ],
+          "shape": 3,
+          "slot_index": 0,
+          "label": "CONDITIONING"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncodeSDXL"
+      },
+      "widgets_values": [
+        4096,
+        4096,
+        0,
+        0,
+        4096,
+        4096,
+        "masterpiece illustration of a scifi cyberpunk girl smiling\n\ndetailed, high quality",
+        "masterpiece illustration of a scifi cyberpunk girl smiling\n\ndetailed, high quality"
+      ]
+    },
+    {
+      "id": 19,
+      "type": "CLIPTextEncodeSDXL",
+      "pos": [
+        720,
+        740
+      ],
+      "size": {
+        "0": 210,
+        "1": 220
+      },
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 19,
+          "label": "clip"
+        },
+        {
+          "name": "text_g",
+          "type": "STRING",
+          "link": 22,
+          "widget": {
+            "name": "text_g"
+          },
+          "label": "text_g"
+        },
+        {
+          "name": "text_l",
+          "type": "STRING",
+          "link": 49,
+          "widget": {
+            "name": "text_l"
+          },
+          "label": "text_l"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            58
+          ],
+          "shape": 3,
+          "slot_index": 0,
+          "label": "CONDITIONING"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncodeSDXL"
+      },
+      "widgets_values": [
+        4096,
+        4096,
+        0,
+        0,
+        4096,
+        4096,
+        "blurry, rendering, photograph",
+        "blurry, rendering, photograph"
+      ]
     },
     {
       "id": 37,
@@ -321,80 +429,56 @@
             61
           ],
           "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "VAE"
         }
       ],
       "properties": {
         "Node name for S&R": "VAELoader"
       },
       "widgets_values": [
-        "sdxl_vae.safetensors"
+        "SDXL\\sdxl_vae_fp16fix.safetensors"
       ]
     },
     {
-      "id": 8,
-      "type": "VAEDecode",
+      "id": 40,
+      "type": "LoadImage",
       "pos": [
-        1260,
-        370
+        166,
+        68
       ],
       "size": {
-        "0": 140,
-        "1": 60
+        "0": 230,
+        "1": 314
       },
       "flags": {},
-      "order": 13,
+      "order": 5,
       "mode": 0,
-      "inputs": [
-        {
-          "name": "samples",
-          "type": "LATENT",
-          "link": 62
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 61
-        }
-      ],
       "outputs": [
         {
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            9
+            94
           ],
-          "slot_index": 0
+          "shape": 3,
+          "slot_index": 0,
+          "label": "IMAGE"
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3,
+          "label": "MASK"
         }
       ],
       "properties": {
-        "Node name for S&R": "VAEDecode"
-      }
-    },
-    {
-      "id": 9,
-      "type": "SaveImage",
-      "pos": [
-        1260,
-        470
-      ],
-      "size": {
-        "0": 400,
-        "1": 450
+        "Node name for S&R": "LoadImage"
       },
-      "flags": {},
-      "order": 14,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 9
-        }
-      ],
-      "properties": {},
       "widgets_values": [
-        "SDXL"
+        "image (3).png",
+        "image"
       ]
     },
     {
@@ -409,17 +493,18 @@
         "1": 100
       },
       "flags": {},
-      "order": 5,
+      "order": 6,
       "mode": 0,
       "outputs": [
         {
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            86
+            92
           ],
           "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "MODEL"
         },
         {
           "name": "CLIP",
@@ -429,13 +514,16 @@
             19
           ],
           "shape": 3,
-          "slot_index": 1
+          "slot_index": 1,
+          "label": "CLIP"
         },
         {
           "name": "VAE",
           "type": "VAE",
-          "links": null,
-          "shape": 3
+          "links": [],
+          "shape": 3,
+          "label": "VAE",
+          "slot_index": 2
         }
       ],
       "title": "Load Checkpoint Base",
@@ -443,146 +531,104 @@
         "Node name for S&R": "CheckpointLoaderSimple"
       },
       "widgets_values": [
-        "sd_xl_base_1.0.safetensors"
+        "SDXL\\dreamshaperXL_lightningDPMSDE.safetensors"
       ]
     },
     {
-      "id": 38,
-      "type": "CLIPVisionLoader",
+      "id": 49,
+      "type": "IPAdapterUnifiedLoader",
       "pos": [
-        370,
-        180
+        591,
+        16
       ],
       "size": {
-        "0": 290,
-        "1": 60
+        "0": 315,
+        "1": 78
       },
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "CLIP_VISION",
-          "type": "CLIP_VISION",
-          "links": [
-            84
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CLIPVisionLoader"
-      },
-      "widgets_values": [
-        "IP-Adapter_sdxl_pytorch_model.bin"
-      ]
-    },
-    {
-      "id": 46,
-      "type": "IPAdapterModelLoader",
-      "pos": [
-        450,
-        80
-      ],
-      "size": [
-        210,
-        60
-      ],
       "flags": {},
       "order": 7,
       "mode": 0,
-      "outputs": [
-        {
-          "name": "IPADAPTER",
-          "type": "IPADAPTER",
-          "links": [
-            88
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "IPAdapterModelLoader"
-      },
-      "widgets_values": [
-        "ip-adapter_sdxl.bin"
-      ]
-    },
-    {
-      "id": 40,
-      "type": "LoadImage",
-      "pos": [
-        100,
-        180
-      ],
-      "size": {
-        "0": 230,
-        "1": 314
-      },
-      "flags": {},
-      "order": 8,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            83
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadImage"
-      },
-      "widgets_values": [
-        "cwf_portrait.jpg",
-        "image"
-      ]
-    },
-    {
-      "id": 47,
-      "type": "IPAdapterApply",
-      "pos": [
-        720,
-        220
-      ],
-      "size": [
-        210,
-        140
-      ],
-      "flags": {},
-      "order": 11,
-      "mode": 0,
       "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 92,
+          "label": "model"
+        },
         {
           "name": "ipadapter",
           "type": "IPADAPTER",
-          "link": 88
+          "link": null,
+          "label": "ipadapter"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "links": [
+            91
+          ],
+          "shape": 3,
+          "label": "model",
+          "slot_index": 0
         },
         {
-          "name": "clip_vision",
-          "type": "CLIP_VISION",
-          "link": 84
+          "name": "ipadapter",
+          "type": "IPADAPTER",
+          "links": [
+            90
+          ],
+          "shape": 3,
+          "label": "ipadapter"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "IPAdapterUnifiedLoader"
+      },
+      "widgets_values": [
+        "PLUS (high strength)"
+      ]
+    },
+    {
+      "id": 48,
+      "type": "IPAdapter",
+      "pos": [
+        941,
+        16
+      ],
+      "size": {
+        "0": 315,
+        "1": 190
+      },
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 91,
+          "label": "model"
+        },
+        {
+          "name": "ipadapter",
+          "type": "IPADAPTER",
+          "link": 90,
+          "label": "ipadapter",
+          "slot_index": 1
         },
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 83
+          "link": 94,
+          "label": "image"
         },
         {
-          "name": "model",
-          "type": "MODEL",
-          "link": 86
+          "name": "attn_mask",
+          "type": "MASK",
+          "link": null,
+          "label": "attn_mask"
         }
       ],
       "outputs": [
@@ -590,78 +636,21 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            87
+            93
           ],
           "shape": 3,
+          "label": "MODEL",
           "slot_index": 0
         }
       ],
       "properties": {
-        "Node name for S&R": "IPAdapterApply"
+        "Node name for S&R": "IPAdapter"
       },
       "widgets_values": [
-        0.6000000000000001,
-        0
-      ]
-    },
-    {
-      "id": 36,
-      "type": "KSampler",
-      "pos": [
-        1000,
-        470
-      ],
-      "size": {
-        "0": 240,
-        "1": 262
-      },
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 87
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 57
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 58
-        },
-        {
-          "name": "latent_image",
-          "type": "LATENT",
-          "link": 59
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            62
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "KSampler"
-      },
-      "widgets_values": [
-        2,
-        "fixed",
-        20,
-        8,
-        "ddim",
-        "ddim_uniform",
-        1
+        1,
+        0,
+        1,
+        "standard"
       ]
     }
   ],
@@ -763,48 +752,56 @@
       "LATENT"
     ],
     [
-      83,
-      40,
-      0,
-      47,
-      2,
-      "IMAGE"
-    ],
-    [
-      84,
-      38,
-      0,
-      47,
+      90,
+      49,
       1,
-      "CLIP_VISION"
+      48,
+      1,
+      "IPADAPTER"
     ],
     [
-      86,
-      14,
+      91,
+      49,
       0,
-      47,
-      3,
+      48,
+      0,
       "MODEL"
     ],
     [
-      87,
-      47,
+      92,
+      14,
+      0,
+      49,
+      0,
+      "MODEL"
+    ],
+    [
+      93,
+      48,
       0,
       36,
       0,
       "MODEL"
     ],
     [
-      88,
-      46,
+      94,
+      40,
       0,
-      47,
-      0,
-      "IPADAPTER"
+      48,
+      2,
+      "IMAGE"
     ]
   ],
   "groups": [],
   "config": {},
-  "extra": {},
+  "extra": {
+    "ds": {
+      "scale": 1.1,
+      "offset": {
+        "0": 645.314453125,
+        "1": -147.22091674804688
+      }
+    }
+  },
   "version": 0.4
 }

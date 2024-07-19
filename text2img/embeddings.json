@@ -1,5 +1,5 @@
 {
-  "last_node_id": 11,
+  "last_node_id": 13,
   "last_link_id": 12,
   "nodes": [
     {
@@ -14,18 +14,20 @@
         "1": 60
       },
       "flags": {},
-      "order": 6,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 7
+          "link": 7,
+          "label": "samples"
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 12
+          "link": 12,
+          "label": "vae"
         }
       ],
       "outputs": [
@@ -35,7 +37,8 @@
           "links": [
             9
           ],
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "IMAGE"
         }
       ],
       "properties": {
@@ -63,7 +66,8 @@
           "links": [
             1
           ],
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "MODEL"
         },
         {
           "name": "CLIP",
@@ -72,13 +76,15 @@
             3,
             5
           ],
-          "slot_index": 1
+          "slot_index": 1,
+          "label": "CLIP"
         },
         {
           "name": "VAE",
           "type": "VAE",
           "links": [],
-          "slot_index": 2
+          "slot_index": 2,
+          "label": "VAE"
         }
       ],
       "properties": {
@@ -100,13 +106,14 @@
         "1": 460
       },
       "flags": {},
-      "order": 7,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 9
+          "link": 9,
+          "label": "images"
         }
       ],
       "properties": {},
@@ -126,13 +133,14 @@
         "1": 160
       },
       "flags": {},
-      "order": 3,
+      "order": 4,
       "mode": 0,
       "inputs": [
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 3
+          "link": 3,
+          "label": "clip"
         }
       ],
       "outputs": [
@@ -142,7 +150,8 @@
           "links": [
             4
           ],
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "CONDITIONING"
         }
       ],
       "title": "CLIP Text Encode (Positive)",
@@ -154,47 +163,6 @@
       ],
       "color": "#232",
       "bgcolor": "#353"
-    },
-    {
-      "id": 7,
-      "type": "CLIPTextEncode",
-      "pos": [
-        430,
-        290
-      ],
-      "size": {
-        "0": 370,
-        "1": 160
-      },
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 5
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            6
-          ],
-          "slot_index": 0
-        }
-      ],
-      "title": "CLIP Text Encode (Negative)",
-      "properties": {
-        "Node name for S&R": "CLIPTextEncode"
-      },
-      "widgets_values": [
-        "(embedding:UnrealisticDream:1.2), embedding:BadDream"
-      ],
-      "color": "#322",
-      "bgcolor": "#533"
     },
     {
       "id": 5,
@@ -217,7 +185,8 @@
           "links": [
             2
           ],
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "LATENT"
         }
       ],
       "properties": {
@@ -251,7 +220,8 @@
             12
           ],
           "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "VAE"
         }
       ],
       "properties": {
@@ -273,28 +243,32 @@
         "1": 262
       },
       "flags": {},
-      "order": 5,
+      "order": 6,
       "mode": 0,
       "inputs": [
         {
           "name": "model",
           "type": "MODEL",
-          "link": 1
+          "link": 1,
+          "label": "model"
         },
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 4
+          "link": 4,
+          "label": "positive"
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 6
+          "link": 6,
+          "label": "negative"
         },
         {
           "name": "latent_image",
           "type": "LATENT",
-          "link": 2
+          "link": 2,
+          "label": "latent_image"
         }
       ],
       "outputs": [
@@ -304,7 +278,8 @@
           "links": [
             7
           ],
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "LATENT"
         }
       ],
       "properties": {
@@ -319,6 +294,72 @@
         "karras",
         1
       ]
+    },
+    {
+      "id": 7,
+      "type": "CLIPTextEncode",
+      "pos": [
+        430,
+        290
+      ],
+      "size": {
+        "0": 370,
+        "1": 160
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 5,
+          "label": "clip"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            6
+          ],
+          "slot_index": 0,
+          "label": "CONDITIONING"
+        }
+      ],
+      "title": "CLIP Text Encode (Negative)",
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "(embedding:UnrealisticDream:1.2), embedding:BadDream,embedding:"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 13,
+      "type": "Note",
+      "pos": [
+        123.18429423560778,
+        418.917738607107
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "properties": {
+        "text": ""
+      },
+      "widgets_values": [
+        "prompt中输入embedding，即可显示模型"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
     }
   ],
   "links": [
@@ -397,6 +438,14 @@
   ],
   "groups": [],
   "config": {},
-  "extra": {},
+  "extra": {
+    "ds": {
+      "scale": 0.8264462809917354,
+      "offset": {
+        "0": 369.64776611328125,
+        "1": 245.07093811035156
+      }
+    }
+  },
   "version": 0.4
 }

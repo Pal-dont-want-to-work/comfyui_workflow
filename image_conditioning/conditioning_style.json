@@ -1,110 +1,7 @@
 {
-  "last_node_id": 17,
+  "last_node_id": 18,
   "last_link_id": 24,
   "nodes": [
-    {
-      "id": 13,
-      "type": "StyleModelLoader",
-      "pos": [
-        380,
-        260
-      ],
-      "size": {
-        "0": 210,
-        "1": 60
-      },
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "STYLE_MODEL",
-          "type": "STYLE_MODEL",
-          "links": [
-            13
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "StyleModelLoader"
-      },
-      "widgets_values": [
-        "coadapter-style-sd15v1.pth"
-      ]
-    },
-    {
-      "id": 16,
-      "type": "LoadImage",
-      "pos": [
-        80,
-        400
-      ],
-      "size": [
-        210,
-        314
-      ],
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            16
-          ],
-          "shape": 3,
-          "slot_index": 0
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadImage"
-      },
-      "widgets_values": [
-        "cwf_marble_statue.jpg",
-        "image"
-      ]
-    },
-    {
-      "id": 14,
-      "type": "CLIPVisionLoader",
-      "pos": [
-        80,
-        300
-      ],
-      "size": {
-        "0": 210,
-        "1": 60
-      },
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "CLIP_VISION",
-          "type": "CLIP_VISION",
-          "links": [
-            15
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CLIPVisionLoader"
-      },
-      "widgets_values": [
-        "style_pytorch_model.bin"
-      ]
-    },
     {
       "id": 11,
       "type": "VAELoader",
@@ -117,7 +14,7 @@
         "1": 60
       },
       "flags": {},
-      "order": 3,
+      "order": 0,
       "mode": 0,
       "outputs": [
         {
@@ -127,14 +24,15 @@
             12
           ],
           "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "VAE"
         }
       ],
       "properties": {
         "Node name for S&R": "VAELoader"
       },
       "widgets_values": [
-        "vae-ft-mse-840000-ema-pruned.safetensors"
+        "SD15\\animevae.pt"
       ]
     },
     {
@@ -149,18 +47,20 @@
         "1": 60
       },
       "flags": {},
-      "order": 11,
+      "order": 12,
       "mode": 0,
       "inputs": [
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 7
+          "link": 7,
+          "label": "samples"
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 12
+          "link": 12,
+          "label": "vae"
         }
       ],
       "outputs": [
@@ -170,58 +70,13 @@
           "links": [
             9
           ],
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "IMAGE"
         }
       ],
       "properties": {
         "Node name for S&R": "VAEDecode"
       }
-    },
-    {
-      "id": 4,
-      "type": "CheckpointLoaderSimple",
-      "pos": [
-        40,
-        60
-      ],
-      "size": {
-        "0": 250,
-        "1": 100
-      },
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            1
-          ],
-          "slot_index": 0
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            3,
-            5
-          ],
-          "slot_index": 1
-        },
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [],
-          "slot_index": 2
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CheckpointLoaderSimple"
-      },
-      "widgets_values": [
-        "v1-5-pruned-emaonly.safetensors"
-      ]
     },
     {
       "id": 9,
@@ -235,13 +90,14 @@
         "1": 460
       },
       "flags": {},
-      "order": 12,
+      "order": 13,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 9
+          "link": 9,
+          "label": "images"
         }
       ],
       "properties": {},
@@ -261,7 +117,7 @@
         "1": 106
       },
       "flags": {},
-      "order": 5,
+      "order": 1,
       "mode": 0,
       "outputs": [
         {
@@ -270,7 +126,8 @@
           "links": [
             2
           ],
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "LATENT"
         }
       ],
       "properties": {
@@ -279,65 +136,6 @@
       "widgets_values": [
         512,
         512,
-        1
-      ]
-    },
-    {
-      "id": 3,
-      "type": "KSampler",
-      "pos": [
-        950,
-        160
-      ],
-      "size": {
-        "0": 240,
-        "1": 262
-      },
-      "flags": {},
-      "order": 10,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 1
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 22
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 6
-        },
-        {
-          "name": "latent_image",
-          "type": "LATENT",
-          "link": 2
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            7
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "KSampler"
-      },
-      "widgets_values": [
-        10,
-        "fixed",
-        20,
-        7,
-        "dpmpp_2m",
-        "karras",
         1
       ]
     },
@@ -353,23 +151,26 @@
         "1": 70
       },
       "flags": {},
-      "order": 9,
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
           "name": "conditioning",
           "type": "CONDITIONING",
-          "link": 24
+          "link": 24,
+          "label": "conditioning"
         },
         {
           "name": "style_model",
           "type": "STYLE_MODEL",
-          "link": 13
+          "link": 13,
+          "label": "style_model"
         },
         {
           "name": "clip_vision_output",
           "type": "CLIP_VISION_OUTPUT",
-          "link": 14
+          "link": 14,
+          "label": "clip_vision_output"
         }
       ],
       "outputs": [
@@ -380,7 +181,8 @@
             22
           ],
           "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "CONDITIONING"
         }
       ],
       "properties": {
@@ -399,13 +201,14 @@
         "1": 80
       },
       "flags": {},
-      "order": 8,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 5
+          "link": 5,
+          "label": "clip"
         }
       ],
       "outputs": [
@@ -415,7 +218,8 @@
           "links": [
             6
           ],
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "CONDITIONING"
         }
       ],
       "title": "CLIP Text Encode (Negative)",
@@ -440,18 +244,20 @@
         "1": 50
       },
       "flags": {},
-      "order": 6,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
           "name": "clip_vision",
           "type": "CLIP_VISION",
-          "link": 15
+          "link": 15,
+          "label": "clip_vision"
         },
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 16
+          "link": 16,
+          "label": "image"
         }
       ],
       "outputs": [
@@ -462,7 +268,8 @@
             14
           ],
           "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "CLIP_VISION_OUTPUT"
         }
       ],
       "properties": {
@@ -481,13 +288,14 @@
         "1": 80
       },
       "flags": {},
-      "order": 7,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 3
+          "link": 3,
+          "label": "clip"
         }
       ],
       "outputs": [
@@ -497,7 +305,8 @@
           "links": [
             24
           ],
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "CONDITIONING"
         }
       ],
       "title": "CLIP Text Encode (Positive)",
@@ -509,6 +318,249 @@
       ],
       "color": "#232",
       "bgcolor": "#353"
+    },
+    {
+      "id": 13,
+      "type": "StyleModelLoader",
+      "pos": [
+        100,
+        183
+      ],
+      "size": {
+        "0": 210,
+        "1": 60
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "STYLE_MODEL",
+          "type": "STYLE_MODEL",
+          "links": [
+            13
+          ],
+          "shape": 3,
+          "slot_index": 0,
+          "label": "STYLE_MODEL"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "StyleModelLoader"
+      },
+      "widgets_values": [
+        "coadapter-style-sd15v1.pth"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "CLIPVisionLoader",
+      "pos": [
+        80,
+        300
+      ],
+      "size": {
+        "0": 210,
+        "1": 60
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "CLIP_VISION",
+          "type": "CLIP_VISION",
+          "links": [
+            15
+          ],
+          "shape": 3,
+          "slot_index": 0,
+          "label": "CLIP_VISION"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPVisionLoader"
+      },
+      "widgets_values": [
+        "clip_vitl.pth"
+      ]
+    },
+    {
+      "id": 18,
+      "type": "Note",
+      "pos": [
+        709,
+        10
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "properties": {
+        "text": ""
+      },
+      "widgets_values": [
+        "apply style model存在维度不一致的情况，可以换CLIP模型"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 16,
+      "type": "LoadImage",
+      "pos": [
+        80,
+        400
+      ],
+      "size": {
+        "0": 210,
+        "1": 314
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            16
+          ],
+          "shape": 3,
+          "slot_index": 0,
+          "label": "IMAGE"
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3,
+          "label": "MASK"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "screenshot-20240626-221120 (2).png",
+        "image"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        40,
+        60
+      ],
+      "size": {
+        "0": 250,
+        "1": 100
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            1
+          ],
+          "slot_index": 0,
+          "label": "MODEL"
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            3,
+            5
+          ],
+          "slot_index": 1,
+          "label": "CLIP"
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [],
+          "slot_index": 2,
+          "label": "VAE"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "SD15\\anything-v5-PrtRE.safetensors"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "KSampler",
+      "pos": [
+        950,
+        160
+      ],
+      "size": [
+        240,
+        474
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1,
+          "label": "model"
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 22,
+          "label": "positive"
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 6,
+          "label": "negative"
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 2,
+          "label": "latent_image"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            7
+          ],
+          "slot_index": 0,
+          "label": "LATENT"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        447412704707279,
+        "randomize",
+        20,
+        7,
+        "dpmpp_2m",
+        "karras",
+        1
+      ]
     }
   ],
   "links": [
@@ -627,6 +679,14 @@
   ],
   "groups": [],
   "config": {},
-  "extra": {},
+  "extra": {
+    "ds": {
+      "scale": 0.8264462809917354,
+      "offset": {
+        "0": 243.72100830078125,
+        "1": 265.31182861328125
+      }
+    }
+  },
   "version": 0.4
 }

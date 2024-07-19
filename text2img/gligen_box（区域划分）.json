@@ -1,5 +1,5 @@
 {
-  "last_node_id": 38,
+  "last_node_id": 39,
   "last_link_id": 151,
   "nodes": [
     {
@@ -14,13 +14,14 @@
         "1": 160
       },
       "flags": {},
-      "order": 4,
+      "order": 5,
       "mode": 0,
       "inputs": [
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 5
+          "link": 5,
+          "label": "clip"
         }
       ],
       "outputs": [
@@ -30,7 +31,8 @@
           "links": [
             6
           ],
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "CONDITIONING"
         }
       ],
       "title": "CLIP Text Encode (Negative)",
@@ -42,46 +44,6 @@
       ],
       "color": "#322",
       "bgcolor": "#533"
-    },
-    {
-      "id": 8,
-      "type": "VAEDecode",
-      "pos": [
-        1230,
-        360
-      ],
-      "size": {
-        "0": 140,
-        "1": 50
-      },
-      "flags": {},
-      "order": 9,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "samples",
-          "type": "LATENT",
-          "link": 7
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 12
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            137
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "VAEDecode"
-      }
     },
     {
       "id": 11,
@@ -105,7 +67,8 @@
             12
           ],
           "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "VAE"
         }
       ],
       "properties": {
@@ -113,65 +76,6 @@
       },
       "widgets_values": [
         "vae-ft-mse-840000-ema-pruned.safetensors"
-      ]
-    },
-    {
-      "id": 3,
-      "type": "KSampler",
-      "pos": [
-        880,
-        360
-      ],
-      "size": {
-        "0": 300,
-        "1": 262
-      },
-      "flags": {},
-      "order": 8,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 1
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 150
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 6
-        },
-        {
-          "name": "latent_image",
-          "type": "LATENT",
-          "link": 2
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            7
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "KSampler"
-      },
-      "widgets_values": [
-        2031,
-        "fixed",
-        17,
-        6,
-        "dpmpp_2m_sde_gpu",
-        "exponential",
-        1
       ]
     },
     {
@@ -195,7 +99,8 @@
           "links": [
             1
           ],
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "MODEL"
         },
         {
           "name": "CLIP",
@@ -206,13 +111,15 @@
             143,
             147
           ],
-          "slot_index": 1
+          "slot_index": 1,
+          "label": "CLIP"
         },
         {
           "name": "VAE",
           "type": "VAE",
           "links": [],
-          "slot_index": 2
+          "slot_index": 2,
+          "label": "VAE"
         }
       ],
       "properties": {
@@ -223,75 +130,204 @@
       ]
     },
     {
-      "id": 18,
-      "type": "CLIPTextEncode",
+      "id": 5,
+      "type": "EmptyLatentImage",
       "pos": [
-        430,
-        230
+        580,
+        650
       ],
       "size": {
-        "0": 370,
-        "1": 140
+        "0": 220,
+        "1": 106
       },
       "flags": {},
-      "order": 5,
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            2
+          ],
+          "slot_index": 0,
+          "label": "LATENT"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [
+        512,
+        512,
+        1
+      ]
+    },
+    {
+      "id": 33,
+      "type": "PreviewImage",
+      "pos": [
+        1400,
+        360
+      ],
+      "size": {
+        "0": 380,
+        "1": 410
+      },
+      "flags": {},
+      "order": 11,
       "mode": 0,
       "inputs": [
         {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 25
+          "name": "images",
+          "type": "IMAGE",
+          "link": 137,
+          "label": "images"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 3,
+      "type": "KSampler",
+      "pos": [
+        879,
+        360
+      ],
+      "size": [
+        300,
+        474
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1,
+          "label": "model"
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 150,
+          "label": "positive"
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 6,
+          "label": "negative"
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 2,
+          "label": "latent_image"
         }
       ],
       "outputs": [
         {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
+          "name": "LATENT",
+          "type": "LATENT",
           "links": [
-            142
+            7
           ],
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "LATENT"
         }
       ],
-      "title": "CLIP Text Encode (Positive)",
       "properties": {
-        "Node name for S&R": "CLIPTextEncode"
+        "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        "high quality illustration of red riding hood hugging the wolf in the forest"
+        2031,
+        "fixed",
+        17,
+        6,
+        "dpmpp_2m_sde_gpu",
+        "exponential",
+        1
+      ]
+    },
+    {
+      "id": 8,
+      "type": "VAEDecode",
+      "pos": [
+        1231,
+        361
       ],
-      "color": "#232",
-      "bgcolor": "#353"
+      "size": {
+        "0": 140,
+        "1": 50
+      },
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 7,
+          "label": "samples"
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 12,
+          "label": "vae"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            137
+          ],
+          "slot_index": 0,
+          "label": "IMAGE"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      }
     },
     {
       "id": 36,
       "type": "GLIGENTextBoxApply",
       "pos": [
-        1190,
-        70
+        1273,
+        74
       ],
       "size": {
         "0": 280,
         "1": 212
       },
       "flags": {},
-      "order": 7,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
           "name": "conditioning_to",
           "type": "CONDITIONING",
-          "link": 145
+          "link": 145,
+          "label": "conditioning_to"
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 147
+          "link": 147,
+          "label": "clip"
         },
         {
           "name": "gligen_textbox_model",
           "type": "GLIGEN",
-          "link": 148
+          "link": 148,
+          "label": "gligen_textbox_model"
         }
       ],
       "outputs": [
@@ -302,7 +338,8 @@
             150
           ],
           "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "CONDITIONING"
         }
       ],
       "properties": {
@@ -319,34 +356,80 @@
       "bgcolor": "#653"
     },
     {
-      "id": 35,
-      "type": "GLIGENTextBoxApply",
+      "id": 18,
+      "type": "CLIPTextEncode",
       "pos": [
-        870,
-        70
+        384,
+        -183
       ],
-      "size": [
-        280,
-        212
-      ],
+      "size": {
+        "0": 370,
+        "1": 140
+      },
       "flags": {},
       "order": 6,
       "mode": 0,
       "inputs": [
         {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 25,
+          "label": "clip"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            142
+          ],
+          "slot_index": 0,
+          "label": "CONDITIONING"
+        }
+      ],
+      "title": "CLIP Text Encode (Positive)",
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "high quality illustration of red riding hood hugging the wolf in the forest"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 35,
+      "type": "GLIGENTextBoxApply",
+      "pos": [
+        841,
+        -65
+      ],
+      "size": {
+        "0": 280,
+        "1": 212
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
           "name": "conditioning_to",
           "type": "CONDITIONING",
-          "link": 142
+          "link": 142,
+          "label": "conditioning_to"
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 143
+          "link": 143,
+          "label": "clip"
         },
         {
           "name": "gligen_textbox_model",
           "type": "GLIGEN",
-          "link": 139
+          "link": 139,
+          "label": "gligen_textbox_model"
         }
       ],
       "outputs": [
@@ -357,7 +440,8 @@
             145
           ],
           "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "CONDITIONING"
         }
       ],
       "properties": {
@@ -377,15 +461,15 @@
       "id": 34,
       "type": "GLIGENLoader",
       "pos": [
-        490,
-        70
+        434,
+        169
       ],
-      "size": [
-        310,
-        60
-      ],
+      "size": {
+        "0": 310,
+        "1": 60
+      },
       "flags": {},
-      "order": 2,
+      "order": 3,
       "mode": 0,
       "outputs": [
         {
@@ -396,73 +480,39 @@
             148
           ],
           "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "label": "GLIGEN"
         }
       ],
       "properties": {
         "Node name for S&R": "GLIGENLoader"
       },
       "widgets_values": [
-        "gligen_sd14_textbox_pruned.safetensors"
+        "gligen_sd14_textbox_pruned_fp16.safetensors"
       ]
     },
     {
-      "id": 5,
-      "type": "EmptyLatentImage",
+      "id": 39,
+      "type": "Note",
       "pos": [
-        580,
-        650
+        1309,
+        -102
       ],
       "size": {
-        "0": 220,
-        "1": 106
+        "0": 210,
+        "1": 58
       },
       "flags": {},
-      "order": 3,
+      "order": 4,
       "mode": 0,
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            2
-          ],
-          "slot_index": 0
-        }
-      ],
       "properties": {
-        "Node name for S&R": "EmptyLatentImage"
+        "text": ""
       },
       "widgets_values": [
-        512,
-        512,
-        1
-      ]
-    },
-    {
-      "id": 33,
-      "type": "PreviewImage",
-      "pos": [
-        1400,
-        360
+        "设置两个 GLIGEN 框，一个用于文本，另一个用于空间"
       ],
-      "size": [
-        380,
-        410
-      ],
-      "flags": {},
-      "order": 10,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 137
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      }
+      "color": "#432",
+      "bgcolor": "#653"
     }
   ],
   "links": [
@@ -589,6 +639,14 @@
   ],
   "groups": [],
   "config": {},
-  "extra": {},
+  "extra": {
+    "ds": {
+      "scale": 0.9090909090909091,
+      "offset": {
+        "0": -495.74505615234375,
+        "1": 265.0963439941406
+      }
+    }
+  },
   "version": 0.4
 }
